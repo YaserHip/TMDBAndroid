@@ -7,6 +7,8 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+
+
 android {
     namespace = "monster.donjabonoso.tmdbandroid"
     compileSdk = 34
@@ -22,11 +24,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
-
+        val props = Properties()
+        props.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "API_KEY", "\"${props.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -47,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
